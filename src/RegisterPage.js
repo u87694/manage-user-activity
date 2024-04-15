@@ -1,6 +1,7 @@
 import { Page, Box, Input, Button, Text, Heading, TextButton } from '@wix/design-system';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from './config';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ const RegisterPage = () => {
         };
 
         try {
-            const response = await fetch('/register', {
+            const response = await fetch(`${API_BASE_URL}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

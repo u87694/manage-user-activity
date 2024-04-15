@@ -1,6 +1,7 @@
-import { Page, Table, Button, PreviewWidget, Text, Box, TextButton } from '@wix/design-system'
+import { Page, Table, Button, Text, Box, TextButton } from '@wix/design-system'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from './config';
 
 const LogoutButton = () => {
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ const LogoutButton = () => {
             if (!token) {
                 return;
             }
-            const response = await fetch('/logout', {
+            const response = await fetch(`${API_BASE_URL}/logout`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,7 +51,7 @@ const Dashboard = () => {
             setToken(null);
             return;
         }
-        fetch('/dashboard', {
+        fetch(`${API_BASE_URL}/dashboard`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',

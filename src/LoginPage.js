@@ -1,6 +1,7 @@
 import { Page, Box, Input, Button, Text, Heading, TextButton } from '@wix/design-system';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from './config';
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
@@ -16,7 +17,7 @@ const LoginPage = () => {
         };
 
         try {
-            const response = await fetch('/login', {
+            const response = await fetch(`${API_BASE_URL}/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -32,7 +33,7 @@ const LoginPage = () => {
                 const userData = responseData.data;
                 const token = responseData.token;
                 console.log("userData: ", userData);
-                fetch(`/dashboard?userData=${encodeURIComponent(JSON.stringify(userData))}`, {
+                fetch(`${API_BASE_URL}/dashboard?userData=${encodeURIComponent(JSON.stringify(userData))}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
