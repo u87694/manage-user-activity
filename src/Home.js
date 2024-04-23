@@ -13,14 +13,6 @@ const Home = () => {
     });
 
     const handleRefresh = () => {
-        // fetch("/hello").then((res) =>
-        //     res.json().then((data) => {
-        //         setData({
-        //             "Status": data.Status,
-        //             "Message": data.Message,
-        //         });
-        //     })
-        // );
         fetch(`${API_BASE_URL}/home`)
         .then((res) => {
             if (!res.ok) {
