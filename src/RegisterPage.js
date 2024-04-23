@@ -9,9 +9,12 @@ const RegisterPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
+        setLoading(true);
         const formData = {
             username: username,
             email: email,
@@ -41,6 +44,8 @@ const RegisterPage = () => {
         } catch (error) {
             setError('Internal Server Error!');
             console.error('Error occured:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -57,25 +62,14 @@ const RegisterPage = () => {
                                 <Text>Username : </Text>
                             </Box>
                             <Box padding="SP2" >
-                                {
-                                    error ? (
-                                        <Input
-                                        onChange={(e) => setUsername(e.target.value)}
-                                        value={username}
-                                        size='medium'
-                                        placeholder='username'
-                                        status='error'
-                                        statusMessage={error}
-                                        />
-                                    ) : (
-                                        <Input
-                                        onChange={(e) => setUsername(e.target.value)}
-                                        value={username}
-                                        size='medium'
-                                        placeholder='username'
-                                        />
-                                    )
-                                }
+                                <Input 
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    size='medium'
+                                    placeholder='username'
+                                    status={error ? "error" : loading ? "loading" : undefined}
+                                    statusMessage={error ? error : undefined}
+                                />
                             </Box>
                         </Box>
                         <Box padding="SP2" direction='horizontle'>
@@ -83,25 +77,14 @@ const RegisterPage = () => {
                                 <Text>Email  :</Text>
                             </Box>
                             <Box padding="SP2" >
-                                {
-                                    error ? (
-                                    <Input
-                                    onChange={(e) => setEmail(e.target.value)}
+                                <Input 
                                     value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     size='medium'
                                     placeholder='email'
-                                    status='error'
-                                    statusMessage={error}
-                                    />
-                                    ) : (
-                                    <Input
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    value={email}
-                                    size='medium'
-                                    placeholder='email'
-                                    />
-                                    )
-                                }
+                                    status={error ? "error" : loading ? "loading" : undefined}
+                                    statusMessage={error ? error : undefined}
+                                />
                             </Box>
                         </Box>
                         <Box padding="SP2" direction='horizontle'>
@@ -109,25 +92,15 @@ const RegisterPage = () => {
                                 <Text>Password :</Text>
                             </Box>
                             <Box padding="SP2" >
-                                {
-                                    error ? (
-                                    <Input onChange={(e) => setPassword(e.target.value)}
+                                <Input 
                                     value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     type='password'
                                     size='medium'
                                     placeholder='password'
-                                    status='error'
-                                    statusMessage={error}
-                                    />
-                                    ) : (
-                                    <Input onChange={(e) => setPassword(e.target.value)}
-                                    value={password}
-                                    type='password'
-                                    size='medium'
-                                    placeholder='password'
-                                    />
-                                    )
-                                }
+                                    status={error ? "error" : loading ? "loading" : undefined}
+                                    statusMessage={error ? error : undefined}
+                                />
                             </Box>
                         </Box>
                         <Box padding="SP2" >
