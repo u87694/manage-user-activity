@@ -7,10 +7,13 @@ const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
+        setLoading(true);
         const formData = {
             username: username,
             password: password
@@ -28,6 +31,7 @@ const LoginPage = () => {
             if (response.ok) {
                 setUsername('');
                 setPassword('');
+                setLoading(false);
                 // make request to server and navigate to dashboard
                 const responseData = await response.json();
                 const userData = responseData.data;
@@ -60,10 +64,13 @@ const LoginPage = () => {
                 }
                 //setError('Server did not responded!');
                 console.error('Failed to login user');
+                setError('Invalid credentials!');
             }
         } catch (error) {
             setError(error);
             console.error('Error occured:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -80,23 +87,14 @@ const LoginPage = () => {
                                 <Text>Username :</Text>
                             </Box>
                             <Box padding="SP2" >
-                                {
-                                    error ? (
-                                        <Input
-                                        value={username} onChange={(e) => setUsername(e.target.value)}
-                                        size='medium'
-                                        placeholder='username'
-                                        status="error"
-                                        statusMessage={error}
-                                        />
-                                    ) : (
-                                        <Input value={username}
-                                        onChange={(e) => setUsername(e.target.value)}
-                                        size='medium'
-                                        placeholder='username'
-                                        />
-                                    )
-                                }
+                                <Input 
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    size='medium'
+                                    placeholder='username'
+                                    status={error ? "error" : loading ? "loading" : undefined}
+                                    statusMessage={error ? error : undefined}
+                                />
                             </Box>
                         </Box>
                         <Box padding="SP2" direction='horizontle'>
@@ -104,23 +102,15 @@ const LoginPage = () => {
                                 <Text>Password :</Text>
                             </Box>
                             <Box padding="SP2" >
-                                {
-                                    error ? (
-                                        <Input value={password} onChange={(e) => setPassword(e.target.value)}
-                                        type='password'
-                                        size='medium'
-                                        placeholder='password'
-                                        status='error'
-                                        statusMessage={error}
-                                        />
-                                    ) : (
-                                        <Input value={password} onChange={(e) => setPassword(e.target.value)}
-                                        type='password'
-                                        size='medium'
-                                        placeholder='password'
-                                        />
-                                    )
-                                }
+                                <Input 
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    type='password'
+                                    size='medium'
+                                    placeholder='password'
+                                    status={error ? "error" : loading ? "loading" : undefined}
+                                    statusMessage={error ? error : undefined}
+                                />
                             </Box>
                         </Box>
                         <Box padding="SP2" >
