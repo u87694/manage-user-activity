@@ -3,6 +3,7 @@ import { Table, Heading, Text, Button, TextButton } from '@wix/design-system';
 import { RefreshSmall } from '@wix/wix-ui-icons-common';
 import { Page, Box } from '@wix/design-system';
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from "./config";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -12,15 +13,7 @@ const Home = () => {
     });
 
     const handleRefresh = () => {
-        // fetch("/hello").then((res) =>
-        //     res.json().then((data) => {
-        //         setData({
-        //             "Status": data.Status,
-        //             "Message": data.Message,
-        //         });
-        //     })
-        // );
-        fetch("/home")
+        fetch(`${API_BASE_URL}/home`)
         .then((res) => {
             if (!res.ok) {
                 throw new Error('Server response was not Ok');
