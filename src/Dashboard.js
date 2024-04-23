@@ -1,4 +1,4 @@
-import { Page, Table, Button, PreviewWidget, Text, Box, TextButton } from '@wix/design-system'
+import { Page, Table, Button, Text, Box, TextButton } from '@wix/design-system'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API_BASE_URL from './config';
